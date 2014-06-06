@@ -39,12 +39,13 @@ BOOL ILGWaitForBlockUntilTimeout(BOOL(^isFinishedBlock)(void), NSTimeInterval ti
     BOOL isFinished = NO;
     while (!(isFinished = isFinishedBlock())
            && [runLoop runMode:NSDefaultRunLoopMode beforeDate:stopDate]
-           && [stopDate isGreaterThan:[NSDate date]]);
+           && [stopDate compare:[NSDate date]] == NSOrderedDescending);
     return isFinished;
 }
 
 void ILGIdleFor(NSTimeInterval idleInterval) {
     NSRunLoop *theRL = [NSRunLoop currentRunLoop];
     NSDate *stopDate = [NSDate dateWithTimeIntervalSinceNow:idleInterval];
-    while ([theRL runMode:NSDefaultRunLoopMode beforeDate:stopDate] && [stopDate isGreaterThan:[NSDate date]]);
+    while ([theRL runMode:NSDefaultRunLoopMode beforeDate:stopDate]
+           && [stopDate compare:[NSDate date]] == NSOrderedDescending);
 }
