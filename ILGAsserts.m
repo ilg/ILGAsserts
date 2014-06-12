@@ -6,7 +6,7 @@
 
 /*********************************************************************************
  
- © Copyright 2013, Isaac Greenspan
+ © Copyright 2013-2014, Isaac Greenspan
  
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation

@@ -6,7 +6,7 @@
 
 /*********************************************************************************
  
- © Copyright 2013, Isaac Greenspan
+ © Copyright 2013-2014, Isaac Greenspan
  
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -33,6 +33,32 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
+
+/**
+ *  Assert that a given array is not empty and that every element it contains is of the kind of the given class.
+ *
+ *  @param array     The array to test
+ *  @param class     The class that every array element should be a kind of
+ *  @param format    The description for the assertion (optional).
+ */
+#define ILGAssertNonemptyArrayOfClass(array, class, format...) \
+    do { \
+        @try {\
+            if ([array count] == 0) { \
+                _XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0), format); \
+            } else { \
+                for (id ILGAssertNonemptyArrayOfClass_obj in array) { \
+                    if (![ILGAssertNonemptyArrayOfClass_obj isKindOfClass:class]) { \
+                        _XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0), format); \
+                        break; \
+                    } \
+                } \
+            } \
+        }\
+        @catch (id anException) {\
+            _XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 1), format); \
+        }\
+    } while(0)
 
 /**
  *  Assert that a given block will return YES before a given time interval has elapsed.

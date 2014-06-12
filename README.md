@@ -1,5 +1,14 @@
 # ILGAsserts
 
+## ILGAssertNonemptyArrayOfClass
+
+`ILGAssertNonemptyArrayOfClass` asserts that a given array is not empty and that every element it contains is of the kind of the given class.  Example:
+
+    ILGAssertNonemptyArrayOfClass(@[ @1, @NO, ], [NSNumber class], @"The given array is empty or contains an object that isn't an NSNumber.");  // Pass
+    ILGAssertNonemptyArrayOfClass(@[ @1, @"NO", ], [NSNumber class], @"The given array is empty or contains an object that isn't an NSNumber.");  // Fail
+    ILGAssertNonemptyArrayOfClass(@[ ], [NSNumber class], @"The given array is empty or contains an object that isn't an NSNumber.");  // Fail
+
+
 ## ILGAssertBlockReturnsYesBeforeTimeout
 
 `ILGAssertBlockReturnsYesBeforeTimeout` asserts that a given block will return `YES` before a given time interval has elapsed.  Example:
