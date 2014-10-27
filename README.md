@@ -1,5 +1,7 @@
 # ILGAsserts
 
+**Note:** Version 1.1.1 includes a fix for the change in `XCTest` in Xcode 6 that broke the `ILGAsserts` assertion macros—the fix works on iOS, but has not yet been tested on OS X.
+
 ## ILGAssertNonemptyArrayOfClass
 
 `ILGAssertNonemptyArrayOfClass` asserts that a given array is not empty and that every element it contains is of the kind of the given class.  Example:

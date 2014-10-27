@@ -34,6 +34,14 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
+// Apple changed the signature for the _XCTRegisterFailure macro between iOS 7 and iOS 8.
+#if defined(__IPHONE_8_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+#   define _ILGRegisterFailure(expression, format...) _XCTRegisterFailure(self, expression, format)
+#else
+#   define _ILGRegisterFailure(expression, format...) _XCTRegisterFailure(expression, format)
+#endif
+
+
 /**
  *  Assert that a given array is not empty and that every element it contains is of the kind of the given class.
  *
@@ -45,18 +53,18 @@
     do { \
         @try {\
             if ([array count] == 0) { \
-                _XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0), format); \
+                _ILGRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0), format); \
             } else { \
                 for (id ILGAssertNonemptyArrayOfClass_obj in array) { \
                     if (![ILGAssertNonemptyArrayOfClass_obj isKindOfClass:class]) { \
-                        _XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0), format); \
+                        _ILGRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0), format); \
                         break; \
                     } \
                 } \
             } \
         }\
         @catch (id anException) {\
-            _XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 1), format); \
+            _ILGRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 1), format); \
         }\
     } while(0)
 
@@ -71,11 +79,11 @@
     do { \
         @try {\
             if (!ILGWaitForBlockUntilTimeout(isFinishedBlock, timeout)) { \
-                _XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0), format); \
+                _ILGRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0), format); \
             } \
         }\
         @catch (id anException) {\
-            _XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 1), format); \
+            _ILGRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 1), format); \
         }\
     } while(0)
 
